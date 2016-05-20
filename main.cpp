@@ -9,6 +9,7 @@ using std::endl;
 
 bool Pangrama(char*,unsigned int);
 void contar(char*,unsigned int);
+void morse(char*, unsigned int);
 
 int main(int argc, char* argv[]){
 	int resp=1;
@@ -41,8 +42,12 @@ int main(int argc, char* argv[]){
 			delete[] input;
 			input=NULL;	
 		}else if(opcion==3){
-		//	char* codigo = new char[256];
-
+			char* codigo = new char[256];
+			cout<<"Ingrese codigo morse:"<<endl;
+			cin.clear();
+			cin.ignore();
+			cin.getlinea(codigo,size);
+			morse(codigo,size);
 		}else if(opcion==4){
 			cout<<"Gracias por usar este programa!"<<endl;
 			return 0;
@@ -293,4 +298,78 @@ void contar(char* input, unsigned int size){
 	if(z==0)
 		cout<<" Z ";
 	cout<<endl;
+}
+
+
+void morse(char* codigo, unsigned int size){
+	char traduccion[size];
+	int cont=0,letra=0;
+	for(int i=0;i<size;i++){
+		char* palabra=new char[size/2];
+		cont=0;
+		while(codigo[letra]!='&'||codigo[letra]!='\n'){
+			palabra[cont]=codigo[letra];
+			cont++;
+			letra++;
+		}
+		if(palabra==".-")
+			cout<<"a";
+		else if(palabra=="-...")
+			cout<<"b";
+		else if(palabra=="-.-.")
+			cout<<"c";
+		else if(palabra=="-..")
+			cout<<"d";
+		else if(palabra==".")
+			cout<<"e";
+		else if(palabra=="..-.")
+			cout<<"f";
+		else if(palabra=="--.")
+			cout<<"g";
+		else if(palabra=="....")
+			cout<<"h";
+		else if(palabra=="..")
+			cout<<"i";
+		else if(palabra==".---")
+			cout<<"j";
+		else if(palabra=="-.-")
+			cout<<"k";
+		else if(palabra==".-..")
+			cout<<"l";
+		else if(palabra=="--")
+			cout<<"m";
+		else if(palabra=="-.")
+			cout<<"n";
+		else if(palabra=="---")
+			cout<<"o";
+		else if(palabra==".--.")
+			cout<<"p";
+		else if(palabra=="--.-")
+			cout<<"q";
+		else if(palabra==".-.")
+			cout<<"r";
+		else if(palabra=="...")
+			cout<<"s";
+		else if(palabra=="-")
+			cout<<"t";
+		else if(palabra=="..-")
+			cout<<"u";
+		else if(palabra=="...-")
+			cout<<"v";
+		else if(palabra==".--")
+			cout<<"w";
+		else if(palabra=="-..-")
+			cout<<"x";
+		else if(palabra=="-.--")
+			cout<<"y";
+		else if(palabra=="--..")
+			cout<<"z";
+
+		delete[] palabra;
+		palabra=NULL;
+		if(codigo[letra]=='\n'){
+			cout<<endl;
+			i=size;
+		}
+	}
 }
