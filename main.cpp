@@ -42,12 +42,14 @@ int main(int argc, char* argv[]){
 			delete[] input;
 			input=NULL;	
 		}else if(opcion==3){
-			char* codigo = new char[256];
+			char* codigo = new char[size];
 			cout<<"Ingrese codigo morse:"<<endl;
 			cin.clear();
 			cin.ignore();
-			cin.getlinea(codigo,size);
+			cin.getline(codigo,size);
 			morse(codigo,size);
+			delete[] codigo;
+			codigo=NULL;
 		}else if(opcion==4){
 			cout<<"Gracias por usar este programa!"<<endl;
 			return 0;
@@ -302,15 +304,22 @@ void contar(char* input, unsigned int size){
 
 
 void morse(char* codigo, unsigned int size){
-	char traduccion[size];
+	
 	int cont=0,letra=0;
-	for(int i=0;i<size;i++){
+	for(int i=0;i<size/2;i++){
 		char* palabra=new char[size/2];
 		cont=0;
-		while(codigo[letra]!='&'||codigo[letra]!='\n'){
+		bool valido=true;	
+		while(valido){
+			if(codigo[letra]=='&'||codigo[letra]=='\n'){
+				valido=false;
+			}else{
 			palabra[cont]=codigo[letra];
+			cout<<palabra[cont]<<"\t"<<codigo[letra]<<endl;
+			cout<<cont<<"\t"<<letra;
 			cont++;
 			letra++;
+			}
 		}
 		if(palabra==".-")
 			cout<<"a";
