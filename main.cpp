@@ -1,8 +1,9 @@
 #include<cstring>
 #include<string>
 #include<iostream>
-#include<stdint.h>
+#include<string>
 
+using std::string;
 using std::cout;
 using std::cin;
 using std::endl;
@@ -132,7 +133,7 @@ bool Pangrama(char* input, unsigned int size){
 
 void contar(char* input, unsigned int size){	
 	int words=1,a=0,b=0,c=0,d=0,e=0,f=0,g=0,h=0,letrai=0,j=0,k=0,l=0,m=0,n=0,o=0,p=0,q=0,r=0,s=0,t=0,u=0,v=0,w=0,x=0,y=0,z=0;
-	for(int i=0;i<size;i++){
+	for(int i=0;i<=size;i++){
 		char curr=input[i];
 		if(curr=='a'||curr=='A')
 			a++;
@@ -304,23 +305,28 @@ void contar(char* input, unsigned int size){
 
 
 void morse(char* codigo, unsigned int size){
+	bool siga=true;
+	codigo[strlen(codigo)+1]='&';
+	cout<<codigo<<endl;
 	
-	int cont=0,letra=0;
-	for(int i=0;i<size/2;i++){
-		char* palabra=new char[size/2];
-		cont=0;
-		bool valido=true;	
-		while(valido){
-			if(codigo[letra]=='&'||codigo[letra]=='\n'){
-				valido=false;
+	int ampersans=0, cont=0,letra=0;
+	string palabra="";
+	for(int i=0;i<size;i++){
+		if(codigo[i]=='&'){
+			ampersans++;
+		}
+	}
+	for(int i=0;i<ampersans;i++){
+		palabra="";
+		while(codigo[letra]!='&'){
+			if(codigo[letra]=='\n'){	
+				cout<<endl;	
 			}else{
-			palabra[cont]=codigo[letra];
-			cout<<palabra[cont]<<"\t"<<codigo[letra]<<endl;
-			cout<<cont<<"\t"<<letra;
-			cont++;
-			letra++;
+				palabra+=codigo[letra];
+				letra++;
 			}
 		}
+		
 		if(palabra==".-")
 			cout<<"a";
 		else if(palabra=="-...")
@@ -373,12 +379,6 @@ void morse(char* codigo, unsigned int size){
 			cout<<"y";
 		else if(palabra=="--..")
 			cout<<"z";
-
-		delete[] palabra;
-		palabra=NULL;
-		if(codigo[letra]=='\n'){
-			cout<<endl;
-			i=size;
-		}
 	}
+	cout<<endl;
 }
