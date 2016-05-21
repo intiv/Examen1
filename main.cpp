@@ -133,7 +133,7 @@ bool Pangrama(char* input, unsigned int size){
 
 void contar(char* input, unsigned int size){	
 	int words=1,a=0,b=0,c=0,d=0,e=0,f=0,g=0,h=0,letrai=0,j=0,k=0,l=0,m=0,n=0,o=0,p=0,q=0,r=0,s=0,t=0,u=0,v=0,w=0,x=0,y=0,z=0;
-	for(int i=0;i<=size;i++){
+	for(int i=0;i<size;i++){
 		char curr=input[i];
 		if(curr=='a'||curr=='A')
 			a++;
@@ -187,8 +187,10 @@ void contar(char* input, unsigned int size){
 			y++;
 		else if(curr=='z'||curr=='Z')
 			z++;
-		else if((curr==' '&&input[i+1]!=' ')||(curr=='\n')){
+		else if((curr==' '&&input[i+1]!=' ')){
 			words++;
+		}else if(curr=='\n'){
+			i=size;
 		}
 	}
 	int letras=(a+b+c+d+e+f+g+h+letrai+j+k+l+m+n+o+p+q+r+s+t+u+v+w+x+y+z);
@@ -306,8 +308,8 @@ void contar(char* input, unsigned int size){
 
 void morse(char* codigo, unsigned int size){
 	bool siga=true;
-	codigo[strlen(codigo)+1]='&';
-	cout<<codigo<<endl;
+	codigo[strlen(codigo)]='&';
+
 	
 	int ampersans=0, cont=0,letra=0;
 	string palabra="";
@@ -318,9 +320,14 @@ void morse(char* codigo, unsigned int size){
 	}
 	for(int i=0;i<ampersans;i++){
 		palabra="";
-		while(codigo[letra]!='&'){
+		siga=true;
+		while(siga){
 			if(codigo[letra]=='\n'){	
-				cout<<endl;	
+				cout<<endl;
+				siga=false;	
+			}else if(codigo[letra]=='&'){
+				siga=false;
+				letra++;
 			}else{
 				palabra+=codigo[letra];
 				letra++;
